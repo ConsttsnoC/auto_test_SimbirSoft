@@ -54,10 +54,21 @@
     pip install -r requirements.txt
    ```
         
+### Запуска образа Docker Selenium Hub с браузером Chrome
+Для запуска используйте команду: 
+`docker-compose up -d`
 
-### Запуск тестов с Pytest
+### Запуск тестов Pytest
 Для запуска тестов используйте команду: 
-`pytest  --reruns 3  --alluredir=allure-results  `
+`pytest  --reruns 3  --alluredir=allure-results`
 
 ## Запуск генерации отчёта allure
 `pytest serve`
+
+## Запуск тестов локально для Windows
+Для включения переменной, Windows `$env:LOCAL_RUN = "true"` 
+Для отключения переменной, Windows `Remove-Item Env:LOCAL_RUN`
+
+## Запуск тестов локально для Unix-подобных систем
+Для включения переменной, Unix `export LOCAL_RUN=true"` 
+Для отключения переменной, Unix `unset LOCAL_RUN`
