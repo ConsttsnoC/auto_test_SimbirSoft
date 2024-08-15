@@ -62,7 +62,7 @@
 `pytest  --reruns 3  --alluredir=allure-results`
 
 ## Запуск генерации отчёта allure
-`pytest serve`
+`allure serve`
 
 ## Запуск тестов локально для Windows
 Для включения переменной, Windows `$env:LOCAL_RUN = "true"` 
