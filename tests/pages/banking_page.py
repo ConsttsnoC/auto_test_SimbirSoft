@@ -1,13 +1,18 @@
-import time
 import allure
 import pytest
 from loguru import logger
+from selenium.webdriver.chrome.webdriver import WebDriver
+from utils.csv_helper import HelpCsv
 from utils.fibonacci import get_fibonacci_for_today
 from .base_page import BasePage
 from .locators import Locators
 
 
-class LoginPage(BasePage):
+class BankingPage(BasePage):
+
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver)
+        self.help_csv = HelpCsv(driver)
 
     @allure.step("Авторизация и внесение / списание депозита")
     def authorize_and_manage_deposit(self):
@@ -50,32 +55,49 @@ class LoginPage(BasePage):
 
             logger.info("Процесс входа и внесения депозита завершён успешно.")
 
-            with allure.step("Нажатие на кнопку 'Withdrawl' для переключения на списания."):
+            with allure.step(
+                "Нажатие на кнопку 'Withdrawl' для переключения на списания."
+            ):
                 self.find_and_click_element(Locators.WRITTEN_FROM_ACCOUNT)
                 logger.info("Кнопка 'Withdrawl' для переключения на списания.")
 
-            time.sleep(0.5)# для загрузки старницы
+            self.wait_for_body_to_load()
 
             with allure.step(f"Установка суммы снятия депозита: {deposit_amount_str}"):
                 self.find_and_send(Locators.INPUT_WITHDRAW_AMOUNT, deposit_amount_str)
                 logger.info(f"Сумма снятия депозита установлена: {deposit_amount_str}.")
 
-            with allure.step("Нажатие на кнопку 'Withdraw' для подтверждения снятия депозита"):
+            with allure.step(
+                "Нажатие на кнопку 'Withdraw' для подтверждения снятия депозита"
+            ):
                 self.find_and_click_element(Locators.WITHDRAW_CONFIRM_BUTTON)
-                logger.info("Кнопка 'Withdraw' для подтверждения снятия депозита нажата.")
+                logger.info(
+                    "Кнопка 'Withdraw' для подтверждения снятия депозита нажата."
+                )
 
-            with allure.step("Проверка, что баланс равен 0 после снятия депозита"):
+            with allure.step("Проверка, что баланс равен 0 после снятия депозита."):
                 balance_element = self.find_element(Locators.LOCATOR_BALANCE)
                 balance_value = int(balance_element.text.strip())
 
-                assert balance_value == 0, f"Баланс не равен 0. Текущий баланс: {balance_value}"
+                assert (
+                    balance_value == 0
+                ), f"Баланс не равен 0. Текущий баланс: {balance_value}"
                 logger.info(f"Баланс успешно проверен и равен {balance_value}.")
+                # Переход к разделу транзакций
+            with allure.step("Переход к разделу транзакций."):
+                self.find_and_click_element(Locators.TRANSACTIONS_BUTTON)
+                logger.info("Перейдено к разделу транзакций.")
+            self.wait_for_body_to_load()
+            self.help_csv.save_transactions_to_csv()
+            with allure.step("Разлогиниваемся"):
+                self.find_and_click_element(Locators.LOGOUT_BUTTON)
+                logger.info("Выход из профиля успешен.")
+
         except Exception as e:
-            logger.error(f"Произошла ошибка во время процесса входа: {e}")
-            allure.attach(f"Ошибка: {e}", name="Ошибка входа", attachment_type=allure.attachment_type.TEXT)
-            pytest.fail(
-                self.make_screenshot(
-                    "Ошибка оформления дополнительного полиса ЕОСАГО для ИП"
-                )
+            logger.error(f"Произошла ошибка: {e}")
+            allure.attach(
+                f"Ошибка: {e}",
+                name="Ошибка входа",
+                attachment_type=allure.attachment_type.TEXT,
             )
-            raise
+            pytest.fail(self.make_screenshot("Ошибка"))

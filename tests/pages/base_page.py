@@ -1,12 +1,9 @@
-import random
 import time
-
 import allure
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from faker import Faker
 
 
 class BasePage:
@@ -138,30 +135,6 @@ class BasePage:
             EC.presence_of_element_located(locator)
         )
         return element
-
-    def generate_first_name(self):
-        fake = Faker("ru_RU")
-        first_name = fake.first_name_male()
-        return first_name
-
-    def generate_email(self):
-        fake = Faker()
-        return fake.email()
-
-    def generate_password(self):
-        fake = Faker()
-        # Генерация 8 случайных цифр
-        digits = "".join([str(random.randint(0, 9)) for _ in range(8)])
-        # Генерация одной строчной и одной заглавной буквы
-        lowercase_letter = fake.random_lowercase_letter()
-        uppercase_letter = fake.random_uppercase_letter()
-        # Специальный символ
-        special_char = "!"
-        # Формирование пароля
-        password = digits + lowercase_letter + uppercase_letter + special_char
-        # Перемешиваем символы в пароле для большей случайности
-        password = "".join(random.sample(password, len(password)))
-        return password
 
     def make_screenshot(self, name):
         allure.attach(

@@ -7,7 +7,9 @@ from typing import Final
 
 # URL для Selenium Grid и базовый URL сайта
 SELENIUM_GRID_URL: Final = os.getenv("SELENIUM_GRID_URL", "http://localhost:4444")
-BASE_URL: Final = os.getenv("BASE_URL", "https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login")
+BASE_URL: Final = os.getenv(
+    "BASE_URL", "https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login"
+)
 LOCAL_RUN: Final = os.getenv("LOCAL_RUN", "false").lower() == "true"
 
 
@@ -35,6 +37,7 @@ def driver(request):
 
     yield driver
     driver.quit()
+
 
 @pytest.fixture
 def open_website_and_clear(driver):

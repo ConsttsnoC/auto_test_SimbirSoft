@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 def fibonacci(n: int) -> int:
     """
     Вычисляет N-е число Фибоначчи.
@@ -11,6 +12,7 @@ def fibonacci(n: int) -> int:
     for _ in range(n):
         a, b = b, a + b
     return a
+
 
 def get_fibonacci_for_today() -> int:
     """
