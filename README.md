@@ -42,8 +42,7 @@
     ```
     Активируйте виртуальное окружение:
     ```
-    Для Windows: myenv\Scripts\activate
-
+    Для Windows: myenv\Scripts\.\activate 
     Для macOS и Linux: source myenv/bin/activate
     ```
     После активации виртуального окружения вы увидите его имя в начале строки командной строки.
