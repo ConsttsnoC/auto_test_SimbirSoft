@@ -14,5 +14,4 @@ class Locators:
     TRANSACTIONS_BUTTON = (By.CSS_SELECTOR, "[ng-class='btnClass1']")
     TABLE_ELEMENTS = LOCATOR_TABLE = (By.TAG_NAME, "table")
     LOGOUT_BUTTON = (By.CSS_SELECTOR, "button[ng-show='logout']")
-    LOCATOR_TEXT_CREDIT = (By.CSS_SELECTOR, '#anchor0 > td:nth-child(3)')
-
+    LOCATOR_TEXT_CREDIT = (By.CSS_SELECTOR, "#anchor0 > td:nth-child(3)")

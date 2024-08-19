@@ -1,7 +1,6 @@
 import allure
 import pytest
 from loguru import logger
-
 from tests.pages.base_page import BasePage
 from tests.pages.locators import Locators
 from utils.fibonacci import get_fibonacci_for_today
@@ -10,6 +9,7 @@ from utils.fibonacci import get_fibonacci_for_today
 class MainPage(BasePage):
     deposit_amount = get_fibonacci_for_today()
     deposit_amount_str = str(deposit_amount)
+
     def login(self):
         try:
             logger.info("Начало процесса авторизации")
@@ -60,7 +60,9 @@ class MainPage(BasePage):
                 logger.info("Вкладка 'Deposit' нажата.")
 
             with allure.step(f"Установка суммы депозита: {self.deposit_amount_str}"):
-                self.find_and_send(Locators.DEPOSIT_AND_WITHDRAW_INPUT, self.deposit_amount_str)
+                self.find_and_send(
+                    Locators.DEPOSIT_AND_WITHDRAW_INPUT, self.deposit_amount_str
+                )
                 logger.info(f"Сумма депозита установлена: {self.deposit_amount_str}.")
 
             with allure.step("Нажатие на кнопку 'Deposit' для подтверждения депозита"):
@@ -79,18 +81,26 @@ class MainPage(BasePage):
 
     def withdrawal_of_deposit(self):
         try:
-            with allure.step("Нажатие на вкладку 'Withdrawl' для переключения на списания."):
+            with allure.step(
+                "Нажатие на вкладку 'Withdrawl' для переключения на списания."
+            ):
                 self.find_and_click_element(Locators.WRITTEN_FROM_ACCOUNT)
                 logger.info("Вкладка 'Withdrawl' нажата.")
 
             self.wait_for_body_to_load()
 
-            with allure.step(f"Установка суммы снятия депозита: {self.deposit_amount_str}"):
-                self.find_and_send(Locators.DEPOSIT_AND_WITHDRAW_INPUT, self.deposit_amount_str)
-                logger.info(f"Сумма снятия депозита установлена: {self.deposit_amount_str}.")
+            with allure.step(
+                f"Установка суммы снятия депозита: {self.deposit_amount_str}"
+            ):
+                self.find_and_send(
+                    Locators.DEPOSIT_AND_WITHDRAW_INPUT, self.deposit_amount_str
+                )
+                logger.info(
+                    f"Сумма снятия депозита установлена: {self.deposit_amount_str}."
+                )
 
             with allure.step(
-                    "Нажатие на кнопку 'Withdraw' для подтверждения снятия депозита"
+                "Нажатие на кнопку 'Withdraw' для подтверждения снятия депозита"
             ):
                 self.find_and_click_element(Locators.WITHDRAW_CONFIRM_BUTTON)
                 logger.info(
