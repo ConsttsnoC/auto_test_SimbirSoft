@@ -60,6 +60,10 @@ class HelpCsv(BasePage):
             with allure.step("Переход к разделу транзакций."):
                 self.find_and_click_element(Locators.TRANSACTIONS_BUTTON)
                 logger.info("Перейдено к разделу транзакций.")
+                text_value = self.find_element(Locators.LOCATOR_TEXT_CREDIT).text.strip()
+                assert text_value == "Credit", f"Ожидалось слово 'Credit', но получено '{text_value}'"
+                logger.info(f"Дополнительная проверка что слово {text_value}, находится а таблице пройдена")
+
             records = self.get_table_records()
 
             if len(records) < 2:
