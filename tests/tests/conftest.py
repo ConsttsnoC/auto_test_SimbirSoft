@@ -5,6 +5,8 @@ from selenium.webdriver.chrome.options import Options
 import os
 from typing import Final
 
+from tests.pages.main_page import MainPage
+
 # URL для Selenium Grid и базовый URL сайта
 SELENIUM_GRID_URL: Final = os.getenv("SELENIUM_GRID_URL", "http://localhost:4444")
 BASE_URL: Final = os.getenv(
@@ -50,3 +52,11 @@ def open_website_and_clear(driver):
     driver.execute_script("window.sessionStorage.clear();")
     driver.delete_all_cookies()
     yield driver
+
+@pytest.fixture
+def login_logout(open_website_and_clear):
+    page = MainPage(open_website_and_clear)
+    page.login()
+    yield open_website_and_clear
+    page.logout()
+    logger.info(f"Отчёт allure: http://localhost:4040")

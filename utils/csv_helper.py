@@ -23,7 +23,9 @@ class HelpCsv(BasePage):
 
             logger.info("Начало поиска строк в таблице.")
             rows = table_element.find_elements(By.CSS_SELECTOR, "tr")
-            logger.info(f"Количество найденных строк: {len(rows)}.")
+
+            logger.info(f"Проверка наличия строк в таблице: кол-во {len(rows)}.")
+            assert len(rows) > 1, "Таблица содержит только заголовок или пуста."
 
             logger.info("Извлечение текста из каждой строки таблицы.")
             records = []
@@ -35,8 +37,15 @@ class HelpCsv(BasePage):
                 else:
                     logger.warning(f"Строка номер {index + 1} пуста.")
 
+            logger.info("Проверка наличия записей")
+            assert records, "Не удалось получить ни одной записи из таблицы."
+
             logger.info("Извлечение всех записей завершено успешно.")
             return records
+
+        except AssertionError as e:
+            logger.error(f"Ошибка проверки данных: {e}")
+            pytest.fail(f"Ошибка проверки данных: {e}")
 
         except Exception as e:
             logger.error(f"Ошибка при извлечении записей из таблицы: {e}")
@@ -48,8 +57,15 @@ class HelpCsv(BasePage):
         Сохранение данных о проведенных транзакциях в файл CSV.
         """
         try:
-            logger.info("Начинаем процесс сохранения транзакций в CSV файл...")
+            with allure.step("Переход к разделу транзакций."):
+                self.find_and_click_element(Locators.TRANSACTIONS_BUTTON)
+                logger.info("Перейдено к разделу транзакций.")
+                text_value = self.find_element(Locators.LOCATOR_TEXT_CREDIT).text.strip()
+                assert text_value == "Credit", f"Ожидалось слово 'Credit', но получено '{text_value}'"
+                logger.info(f"Дополнительная проверка что слово {text_value}, находится а таблице пройдена")
+
             records = self.get_table_records()
+
             if len(records) < 2:
                 logger.warning(
                     "Записей для сохранения недостаточно. Возможно, таблица пуста."
