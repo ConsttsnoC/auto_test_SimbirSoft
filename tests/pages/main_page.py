@@ -45,7 +45,7 @@ class MainPage(BasePage):
             logger.error(f"Произошла ошибка: {e}")
             allure.attach(
                 f"Ошибка: {e}",
-                name="Ошибка входа",
+                name="Ошибка выхода",
                 attachment_type=allure.attachment_type.TEXT,
             )
             pytest.fail(self.make_screenshot("Ошибка"))

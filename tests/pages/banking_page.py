@@ -112,7 +112,7 @@ class BankingPage(BasePage):
             logger.error(f"Произошла ошибка: {e}")
             allure.attach(
                 f"Ошибка в тесте: {e}",
-                name="Ошибка",
+                name="Ошибка в тесте",
                 attachment_type=allure.attachment_type.TEXT,
             )
             pytest.fail(self.make_screenshot("Ошибка в тесте"))
