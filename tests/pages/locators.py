@@ -2,55 +2,16 @@ from selenium.webdriver.common.by import By
 
 
 class Locators:
-    CUSTOMER_LOGIN_BUTTON = (
-        By.CSS_SELECTOR,
-        "body > div > div > div.ng-scope > div > div.borderM.box.padT20 > div:nth-child(1) > button",
-    )
+    LOGIN_BUTTON = (By.XPATH, "//button[contains(text(), 'Login')]")
     SELECT_USER_NAME = (By.ID, "userSelect")
     ELEMENT_HARRY_POTTER = (By.XPATH, '//*[@id="userSelect"]/option[3]')
-    LOGIN_BUTTON = (
-        By.CSS_SELECTOR,
-        "body > div > div > div.ng-scope > div > form > button",
-    )
+    DEPOSIT_BUTTON = (By.CSS_SELECTOR, "[ng-class='btnClass2']")
+    DEPOSIT_AND_WITHDRAW_INPUT = (By.CSS_SELECTOR, "input[ng-model='amount']")
+    DEPOSIT_OK_BUTTON = (By.XPATH, "//button[text()='Deposit']")
+    WRITTEN_FROM_ACCOUNT = (By.CSS_SELECTOR, "[ng-class='btnClass3']")
+    WITHDRAW_CONFIRM_BUTTON = (By.XPATH, "//button[text()='Withdraw']")
+    LOCATOR_BALANCE = (By.XPATH, "//strong[@class='ng-binding'][2]")
+    TRANSACTIONS_BUTTON = (By.CSS_SELECTOR, "[ng-class='btnClass1']")
+    TABLE_ELEMENTS = LOCATOR_TABLE = (By.TAG_NAME, "table")
+    LOGOUT_BUTTON = (By.CSS_SELECTOR, "button[ng-show='logout']")
 
-    # Локаторы для депозита
-    DEPOSIT_BUTTON = (
-        By.CSS_SELECTOR,
-        "body > div > div > div.ng-scope > div > div:nth-child(5) > button:nth-child(2)",
-    )
-    DEPOSIT_INPUT_FIELD = (
-        By.CSS_SELECTOR,
-        "body > div > div > div.ng-scope > div > div.container-fluid.mainBox.ng-scope > div > form > div > input",
-    )
-    DEPOSIT_OK_BUTTON = (
-        By.CSS_SELECTOR,
-        "body > div > div > div.ng-scope > div > div.container-fluid.mainBox.ng-scope > div > form > button",
-    )
-    WRITTEN_FROM_ACCOUNT = (
-        By.CSS_SELECTOR,
-        "body > div > div > div.ng-scope > div > div:nth-child(5) > button:nth-child(3)",
-    )
-    INPUT_WITHDRAW_AMOUNT = (
-        By.CSS_SELECTOR,
-        "body > div > div > div.ng-scope > div > div.container-fluid.mainBox.ng-scope > div > form > div > input",
-    )
-    WITHDRAW_CONFIRM_BUTTON = (
-        By.CSS_SELECTOR,
-        "body > div > div > div.ng-scope > div > div.container-fluid.mainBox.ng-scope > div > form > button",
-    )
-    LOCATOR_BALANCE = (
-        By.CSS_SELECTOR,
-        "body > div > div > div.ng-scope > div > div:nth-child(3) > strong:nth-child(2)",
-    )
-    TRANSACTIONS_BUTTON = (
-        By.CSS_SELECTOR,
-        "body > div > div > div.ng-scope > div > div:nth-child(5) > button:nth-child(1)",
-    )
-    TABLE_ELEMENTS = (
-        By.CSS_SELECTOR,
-        "body > div > div > div.ng-scope > div > div:nth-child(2)",
-    )
-    LOGOUT_BUTTON = (
-        By.CSS_SELECTOR,
-        "body > div > div > div.box.mainhdr > button.btn.logout",
-    )

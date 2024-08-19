@@ -23,7 +23,7 @@ class BankingPage(BasePage):
         try:
             logger.info("Начало процесса авторизации, внесения и списания депозита.")
             with allure.step("Нажатие на кнопку 'Клиент'"):
-                self.find_and_click_element(Locators.CUSTOMER_LOGIN_BUTTON)
+                self.find_and_click_element(Locators.LOGIN_BUTTON)
                 logger.info("Кнопка 'Клиент' нажата.")
 
             with allure.step("Выбор имени пользователя"):
@@ -46,7 +46,7 @@ class BankingPage(BasePage):
             deposit_amount_str = str(deposit_amount)
 
             with allure.step(f"Установка суммы депозита: {deposit_amount_str}"):
-                self.find_and_send(Locators.DEPOSIT_INPUT_FIELD, deposit_amount_str)
+                self.find_and_send(Locators.DEPOSIT_AND_WITHDRAW_INPUT, deposit_amount_str)
                 logger.info(f"Сумма депозита установлена: {deposit_amount_str}.")
 
             with allure.step("Нажатие на кнопку 'Deposit' для подтверждения депозита"):
@@ -64,7 +64,7 @@ class BankingPage(BasePage):
             self.wait_for_body_to_load()
 
             with allure.step(f"Установка суммы снятия депозита: {deposit_amount_str}"):
-                self.find_and_send(Locators.INPUT_WITHDRAW_AMOUNT, deposit_amount_str)
+                self.find_and_send(Locators.DEPOSIT_AND_WITHDRAW_INPUT, deposit_amount_str)
                 logger.info(f"Сумма снятия депозита установлена: {deposit_amount_str}.")
 
             with allure.step(
