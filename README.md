@@ -25,7 +25,7 @@
 ## Предварительные требования
 
 1. **Клонируйте репозиторий используя команду**
-    ```
+    ```bash
       git clone
     ```
 
@@ -37,13 +37,17 @@
     ```
 3. **Создайте и активируйте виртуальное окружение**
    Создайте виртуальное окружение в текущей директории (замените myenv на желаемое имя вашего окружения)
-    ```
+    ```bash
       python -m venv myenv
     ```
     Активируйте виртуальное окружение:
-    ```
-    Для Windows: myenv\Scripts\.\activate 
-    Для macOS и Linux: source myenv/bin/activate
+    Для Windows:
+    ```bash
+     myenv\Scripts\.\activate 
+   ```
+    Для macOS и Linux: 
+   ```bash
+     source myenv/bin/activate
     ```
     После активации виртуального окружения вы увидите его имя в начале строки командной строки.
 
@@ -55,19 +59,42 @@
         
 ### Запуска образа Docker Selenium Hub с браузером Chrome
 Для запуска используйте команду: 
-`docker-compose up -d`
+```bash
+docker-compose up -d
+   ```
 
 ### Запуск тестов Pytest
 Для запуска тестов используйте команду: 
-`pytest  --reruns 3  --alluredir=allure-results`
+```bash
+pytest  --reruns 3  --alluredir=allure-results
+   ```
 
 ## Запуск генерации отчёта allure
-`allure serve`
+```bash
+allure serve
+ ```
 
+## Для просмотра отчёта allure после запуска docker, можете перейти по:
+```bash
+http://localhost:4040
+ ```
 ## Запуск тестов локально для Windows
-Для включения переменной, Windows `$env:LOCAL_RUN = "true"` 
-Для отключения переменной, Windows `Remove-Item Env:LOCAL_RUN`
+Для включения переменной, Windows: 
+```bash
+$env:LOCAL_RUN = "true" 
+```
+Для отключения переменной, Windows: 
+```bash
+Remove-Item Env:LOCAL_RUN 
+```
 
 ## Запуск тестов локально для Unix-подобных систем
-Для включения переменной, Unix `export LOCAL_RUN=true"` 
-Для отключения переменной, Unix `unset LOCAL_RUN`
+Для включения переменной, Unix:
+```bash
+export LOCAL_RUN=true 
+```
+Для отключения переменной, Unix:
+```bash
+unset LOCAL_RUN 
+```
+
